@@ -11,12 +11,13 @@ express()
   .use(express.static(path.join(__dirname, 'public')))
   .set('views', path.join(__dirname, 'views'))
   .set('view engine', 'ejs')
-  .get('/', async (req, res) => {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
+  .get('/snapshot', async (req, res) => {
+    const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
     await page.setViewport({ width: 600, height: 800 });
-    await page.goto(process.env.SCREENSHOT_URL || 'https://darksky.net/details/40.7127,-74.0059/2021-1-6/us12/en');
-    await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    await page.goto(`http://localhost:${PORT}/`);
+    // await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    await page.waitForTimeout(5000);
     await page.screenshot({
       path: '/tmp/screenshot.png',
     });
@@ -50,6 +51,7 @@ express()
       }
     );
   })
+  .use('/', express.static(path.join(__dirname, 'frontend/build')))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
