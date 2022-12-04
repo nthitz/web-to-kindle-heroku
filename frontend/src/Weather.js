@@ -44,7 +44,14 @@ export default function Weather(props) {
           const date = dayjs(hour.dt * 1000)
           return <div key={hour.dt} className='flex items-center flex-col '>
             <div>{date.format('hA')}</div>
-            <div><img src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`} /></div>
+              <div
+                style={{
+                  backgroundImage: `url(https://openweathermap.org/img/wn/${hour.weather[0].icon}.png)`,
+                  backgroundSize: '130%'
+                }}
+                className='w-6 h-6 bg-no-repeat bg-center'
+
+              />
             <div >{hour.weather[0].description}</div>
             <div>{Math.round(hour.temp)}°</div>
           </div>
