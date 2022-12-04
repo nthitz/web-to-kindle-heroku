@@ -3,8 +3,9 @@ const path = require('path');
 const puppeteer = require('puppeteer');
 const execFile = require('child_process').execFile;
 const fs = require('fs');
+const defaultServerPort = require('./frontend/src/defaultServerPort')
+const PORT = process.env.PORT || defaultServerPort
 
-const PORT = process.env.PORT || 3000;
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
@@ -30,6 +31,24 @@ express()
       'Content-Length': screenshot.length,
     });
     return res.end(screenshot);
+  })
+  .get('/cors', async (req, res) => {
+    // check something here to ensure that the request is coming from the frontend
+
+    // send cors headers
+    res.set('Access-Control-Allow-Origin', '*');
+    res.set('Access-Control-Allow-Methods', 'GET, POST');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+
+
+    // process url query and fetch data bypassing cors
+    const url = req.query.url;
+    fetch(url)
+      .then((response) => response.text())
+      .then((data) => {
+        res.send(data);
+      }
+    );
   })
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
