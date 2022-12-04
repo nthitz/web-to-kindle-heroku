@@ -7,7 +7,7 @@
   },
   "main": "index.js",
   "scripts": {
-    "build": "cd frontend && npm run build",
+    "build": "cd frontend && REACT_APP_HOST=ks3278471.kimsufi.com npm run build",
     "start-local": "HOST=localhost node index.js",
     "start-remote": "HOST=ks3278471.kimsufi.com node index.js"
   },
