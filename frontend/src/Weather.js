@@ -26,8 +26,11 @@ export default function Weather(props) {
       <div className='flex justify-around items-stretch'>
           {days.map(day => {
             const date = dayjs(day.dt * 1000)
+            const isDateToday = date.isSame(dayjs(), 'day')
+            const isDateTomorrow = date.isSame(dayjs().add(1, 'day'), 'day')
+            const dayName = isDateToday ? 'Today' : isDateTomorrow ? 'Tomorrow' : date.format('ddd')
             return <div key={day.dt} className='flex items-center flex-col'>
-              <div>{date.format('MMM D')}</div>
+              <div>{dayName}</div>
               <div><img src={`https://openweathermap.org/img/wn/${day.weather[0].icon}.png`} /></div>
               <div>{day.weather[0].description}</div>
               <div>{Math.round(day.temp.min)}° / {Math.round(day.temp.max)}°</div>
