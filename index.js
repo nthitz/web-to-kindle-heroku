@@ -6,7 +6,7 @@ const fs = require('fs');
 const defaultServerPort = require('./frontend/src/defaultServerPort')
 const PORT = process.env.PORT || defaultServerPort
 const HOST = process.env.HOST || 'localhost'
-
+const fetch = require('node-fetch');
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
