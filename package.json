@@ -20,5 +20,6 @@
     "type": "git",
     "url": "https://github.com/Mieoin/web-to-kindle-heroku"
   },
+  "type":"module",
   "license": "MIT"
 }

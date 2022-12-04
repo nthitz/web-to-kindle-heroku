@@ -1,12 +1,19 @@
-const express = require('express');
-const path = require('path');
-const puppeteer = require('puppeteer');
-const execFile = require('child_process').execFile;
-const fs = require('fs');
-const defaultServerPort = require('./frontend/src/defaultServerPort')
+
+import express from 'express'
+import path from 'path'
+import puppeteer from 'puppeteer'
+import fs from 'fs'
+import {execFile} from 'child_process'
+import fetch from 'node-fetch'
+import defaultServerPort from './frontend/src/defaultServerPort.js'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const PORT = process.env.PORT || defaultServerPort
 const HOST = process.env.HOST || 'localhost'
-const fetch = require('node-fetch');
 
 express()
   .use(express.static(path.join(__dirname, 'public')))
