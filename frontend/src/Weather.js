@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 const apiKey = process.env.REACT_APP_WEATHER_API_KEY;
-const lat = 37.825132839390506
-const lon = -122.25332283032986
+const lat = 37.8263268128464
+const lon =  -122.25416105401307
 // const lat = 37.80431192515931
 // const lon = -122.27153802959046
 //
