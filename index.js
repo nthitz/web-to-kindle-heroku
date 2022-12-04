@@ -5,6 +5,7 @@ const execFile = require('child_process').execFile;
 const fs = require('fs');
 const defaultServerPort = require('./frontend/src/defaultServerPort')
 const PORT = process.env.PORT || defaultServerPort
+const HOST = process.env.HOST || 'localhost'
 
 
 express()
@@ -15,7 +16,7 @@ express()
     const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
     await page.setViewport({ width: 600, height: 800 });
-    await page.goto(`http://localhost:${PORT}/`);
+    await page.goto(`http://${HOST}:${PORT}/`);
     // await page.waitForNavigation({ waitUntil: 'networkidle2' });
     await page.waitForTimeout(5000);
     await page.screenshot({
