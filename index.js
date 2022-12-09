@@ -25,7 +25,7 @@ express()
     await page.setViewport({ width: 600, height: 800 });
     await page.goto(`http://${HOST}:${PORT}/`);
     // await page.waitForNavigation({ waitUntil: 'networkidle2' });
-    await page.waitForTimeout(5000);
+    await page.waitFor(5000);
     await page.screenshot({
       path: '/tmp/screenshot.png',
     });

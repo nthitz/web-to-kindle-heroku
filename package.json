@@ -14,12 +14,12 @@
   "dependencies": {
     "express": "^4.15.2",
     "node-fetch": "^3.3.0",
-    "puppeteer": "^19.3.0"
+    "puppeteer": "^2.0.0"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/Mieoin/web-to-kindle-heroku"
   },
-  "type":"module",
+  "type": "module",
   "license": "MIT"
 }
