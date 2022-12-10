@@ -4,7 +4,8 @@ import path from 'path'
 import puppeteer from 'puppeteer'
 import fs from 'fs'
 import {execFile} from 'child_process'
-import fetch from 'node-fetch'
+// import fetch from 'node-fetch'
+import axios from 'axios'
 import defaultServerPort from './frontend/src/defaultServerPort.js'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
@@ -23,6 +24,7 @@ express()
     const browser = await puppeteer.launch({  args: ['--no-sandbox', '--disable-setuid-sandbox'] });
     const page = await browser.newPage();
     await page.setViewport({ width: 600, height: 800 });
+    await page.emulateTimezone('US/Pacific')
     await page.goto(`http://${HOST}:${PORT}/`);
     // await page.waitForNavigation({ waitUntil: 'networkidle2' });
     await page.waitFor(5000);
@@ -33,7 +35,7 @@ express()
     await browser.close();
 
     await convert('/tmp/screenshot.png');
-    screenshot = fs.readFileSync('/tmp/screenshot.png');
+    const screenshot = fs.readFileSync('/tmp/screenshot.png');
 
     res.writeHead(200, {
       'Content-Type': 'image/png',
@@ -49,15 +51,14 @@ express()
     res.set('Access-Control-Allow-Methods', 'GET, POST');
     res.set('Access-Control-Allow-Headers', 'Content-Type');
 
-
+    const url = req.query.url.toString();
     // process url query and fetch data bypassing cors
-    const url = req.query.url;
-    fetch(url)
-      .then((response) => response.text())
-      .then((data) => {
-        res.send(data);
-      }
-    );
+    // console.log(url)
+    const response = await axios(url)
+    // const data = await response.text()
+    res.send(response.data);
+    // res.send(url)
+
   })
   .use('/', express.static(path.join(__dirname, 'frontend/build')))
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
