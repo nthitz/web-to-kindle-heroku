@@ -27,18 +27,18 @@ function BusPrediction(props) {
       const now = dayjs()
       const diff = time.diff(now, 'minutes')
     }
-    formatted = <div className='flex flex-col '>
-      <div className='text-lg font-bold'>
+    formatted = <div className='flex flex-col text-lg'>
+      <div className='text-lg'>
         {predictions['bustime-response'].prd[0].rt}
       </div>
-      <div className='text-sm'>
+      {/* <div className='text-sm'>
         {'to '}
         {predictions['bustime-response'].prd[0].des}
       </div>
       <div className='text-sm'>
         @ {predictions['bustime-response'].prd[0].stpnm}
-      </div>
-      <div>
+      </div> */}
+      <div className='text-lg font-bold'>
         in {(predictions['bustime-response'].prd[0].prdctdn)} mins
       </div>
       {
